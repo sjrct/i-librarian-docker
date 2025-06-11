@@ -1,0 +1,33 @@
+--- install.sh	2020-04-08 11:41:14.000000000 -0400
++++ install-new.sh	2025-06-11 01:56:35.350033122 -0400
+@@ -44,24 +44,6 @@
+ # Install dependencies
+ apt-get -y install ghostscript poppler-utils tesseract-ocr tesseract-ocr-ell libreoffice
+ 
+-# Query whether to create Alias
+-echo -e "\nDo you want this installer to configure Apache Alias for I, Librarian? [y/n]"
+-read CREATE_ALIAS
+-
+-if [ $CREATE_ALIAS == "y" ]
+-then
+- CONF='/etc/apache2/sites-available/i-librarian.conf'
+- echo -e "\nCreating alias in /etc/apache2/sites-available:\n"
+- sed -e "s=<DIR>=$INSTALLDIR/public=" <"$PWD/.i-librarian" >"$PWD/.i-librarian2"
+- mv "$PWD/.i-librarian2" "$CONF"
+- a2ensite i-librarian
+-else
+- echo -e '\nCreating Alias skipped.\n'
+-fi
+-
+-# Restart Apache
+-service apache2 restart
+-
+ # Install I, Librarian source files
+ echo -e "\nInstalling I, Librarian source files.\n"
+ tar -Jxf "$PWD/source.tar.xz" -C "$INSTALLDIR" app bin classes public
+@@ -75,5 +57,3 @@
+ 
+ # Exit greeting
+ echo -e "\nInstallation is complete. Files were installed in:\n\n$INSTALLDIR\n$CONFDIR\n$DATADIR"
+-echo -e "\n\nPress Ctrl+C to exit."
+-sleep 180

@@ -1,0 +1,18 @@
+services:
+  i-librarian:
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - data:/var/lib/i-librarian
+      - config:/etc/i-librarian/config
+
+volumes:
+  data:
+  config:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./config
+      o: bind
+

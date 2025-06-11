@@ -1,0 +1,4 @@
+config
+.i-librarian
+*.tar.xz
+tags
